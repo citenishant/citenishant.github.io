@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+  <!--<link rel="stylesheet" href="./css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="./css/prism.css" />
+  <link rel="stylesheet" href="./css/daterangepicker.css" />
+  <link rel="stylesheet" href="./css/acode.css" />
+
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="./js/jquery-3.7.0.min.js"></script>
+  <script src="./js/papaparse.min.js"></script>
+  <script src="./js/prism.js"></script>
+  <script src="./js/acode.js"></script>
+  <script src="./js/moment.js"></script>
+  <script src="./js/daterangepicker.min.js"></script>
+
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+  <link
+    href="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.css"
+    rel="stylesheet">
+  <link href="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.css" rel="stylesheet">
+  <link href="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/sticky-header/bootstrap-table-sticky-header.css"
+    rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF/jspdf.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+  <script src="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.min.js"></script>
+  <script
+    src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/resizable/bootstrap-table-resizable.min.js"></script>
+
+  <script
+    src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/addrbar/bootstrap-table-addrbar.min.js"></script>
+  <script
+    src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>
+  <script
+    src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script>
+  <script
+    src="https://unpkg.com/bootstrap-table@1.21.2/dist/extensions/fixed-columns/bootstrap-table-fixed-columns.min.js"></script>
+  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+  <link rel="stylesheet" type="text/css">
+
+  <!-- Include Date Range Picker -->
+
+
+  <title>Biometric Attendance Processor</title>
+  <style>
+    ::-webkit-scrollbar {
+      display: none !important;
+      scroll-behavior: smooth;
+    }
+
+    .tooltip-inner {
+      background-color: rgb(24, 7, 7);
+      color: rgb(245, 242, 242);
+      max-width: 100% !important;
+      text-align: justify;
+    }
+  </style>
+
+</head>
+
+<body style="margin-bottom: 30px;">
+
+
+
+  <div class="container-fluid" style="height: auto !important;">
+    <div id="pbar" class="overlay" style="display: none;">
+      <div class=" spinner-border text-primary" role="status" style="margin-top:25%; width: 3rem; height: 3rem;">
+      </div>
+      <div class="text-center"><span style="font-family: 'Courier New', Courier, monospace;">Processing...</span></div>
+    </div>
+    <div class="row">
+      
+      
+    </div>
+    <div class="row" style="margin-bottom:5px; margin-top: 5px;">
+      <div class="col">
+        <div class="d-flex justify-content-start">
+          <h5>Biometric Attendance Processor (Mark My Attendance)</h5>
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-flex justify-content-end align-items-center">
+          <!--  <button type="button" class="btn btn-sm btn-outline-info" data-toggle="tooltip"
+            style="display: block; color: rgb(1, 3, 15);" ;>Know
+            How to Use</button> -->
+
+          <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" class="text-primary"
+            style="display: block; font-family: 'Courier New', Courier, monospace;" data-bs-html="true" data-bs-title="Please follow these steps: - <ol>
+              <li>Download Data from Biometric Machine</li>
+              <li>Prepare a CSV file for students Biometric IDs (use sample format as given)</li>
+              <li>Upload Biometric Data Downloaded in step 1</li>
+              <li>Upload Students Biometric IDs prepared in step 2</li>
+            </ol>">Help!
+          </button>
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row card" style="margin:0px 0px 5px 0px;" id="bioAttnBlock">
+      <form class="form" id="bioAttnUpload">
+        <div class="form-group">
+          <label for="bio-attn-file" class="col-form-label-sm"><u style="color:red;">Attendance Data Downloaded from
+              Biometric Machine (<i>DAT File</i>)</u>
+            <!--<a href="./SampleBiometricAttendanceData.csv">(Download Sample CSV file)</a> -->
+          </label>
+
+          <input type="file" id="bio-attn-file" class="form-control form-control-sm" accept=".Dat,.DAT,.dat"
+            name="bio-attn" placeholder="Select Biometric Attendance CSV File" onchange="return BioAttnfileValidation()"
+            required multiple />
+
+          <button type="button" id="submit-bio-attn" class="btn btn-sm btn-danger" onclick="handleFileUpload()"
+            style="margin-top: 2px; margin-bottom: 5px;">Upload File
+          </button>
+          <span class="spinner-border spinner-border-sm text-primary" id="upbioimg" role=" status" aria-hidden="true"
+            style="display: none; margin-top: 2px;">
+          </span>
+        </div>
+
+      </form>
+      <div class="card-img-overlay" id="bioAttnUploaded"
+        style="background-color: rgba(93, 91, 91, 0.932); text-align:center; display: none; color: white;">
+      </div>
+    </div>
+    <div class=" row card" style="margin:0px 0px 5px 0px; display: none;" id="IdDataBlock">
+      <form class="form">
+        <div class="form-group">
+          <label for="ids-file" class="col-form-label-sm"><u style="color:orange;">Biometric IDs </u><a
+              href="./Sample_StudentsBiometricIDs.csv">(Download Sample CSV file)</a>:</label>
+          <input type="file" id="ids-file" class="form-control form-control-sm" accept=".csv"
+            placeholder="Select Biometric IDs CSV File" onchange="return BioIdsfileValidation()" required />
+          <button type="submit" id="submit-ids" class="btn btn-sm btn-warning"
+            style="margin-top: 2px; margin-bottom: 5px;">Upload File</button>
+          <span class="spinner-border spinner-border-sm text-primary" id="upidimg" role="status" aria-hidden="true"
+            style="display: none; margin-top: 2px;">
+          </span>
+        </div>
+      </form>
+      <div class="card-img-overlay" id="bioIdUploaded"
+        style="background-color: rgba(93, 91, 91, 0.932); text-align:center; display: none; color: white;">
+      </div>
+    </div>
+  </div>
+  <hr style="height:1px;padding: 0px; border-width:0;color:gray;background-color:gray" />
+
+  <div class="container-fluid">
+    <div id="noData" style="display: none; margin: 0px; padding: 0px;">
+      <span>
+        No Data Found !
+      </span>
+    </div>
+    <div class="table-responsive-sm" id="parsed_csv_list" style="display: none; margin: 0px; padding: 0px;">
+      <div class="d-flex justify-content-center sticky-top text-primary" id="tableTitle"
+        style="font-family: Georgia, 'Times New Roman', Times, serif;">
+      </div>
+      <div id="toolbar" class="d-flex justify-content-start">
+        <!-- <div>
+          <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="months"
+            onChange="buildDataForAttendanceTable(this.value)">
+            <option selected>All Months</option>
+          </select>
+          <span class="spinner-border spinner-border-sm text-primary" id="monthpicker" role="status" aria-hidden="true"
+            style="display: none; padding:5px; margin-left: 5px;"></span>
+        </div>
+      -->
+        <div id="reportrange"
+          style="background: #fff; cursor: pointer; padding: 0px 5px 0px 5px; border: 1px solid #ccc; "
+          class="border border-primary rounded">
+          <i class="fa fa-calendar"></i>&nbsp;
+          <span id="AttnDate"></span> <i class="fa fa-caret-down"></i>
+        </div>
+        <div>
+          <span class="spinner-border spinner-border-sm text-primary" id="monthpicker" role="status" aria-hidden="true"
+            style="display: none; padding:10px; margin-left: 5px;margin-top: 5px;"></span>
+        </div>
+
+        <div class="form-check"
+          style=" margin-top: auto; margin-left: 20px; text-align: center; vertical-align: middle; align-items: center; font-family: Georgia, 'Times New Roman', Times, serif; ">
+          <input class="form-check-input" type="checkbox" value="" id="inOutTime" onchange="showTime()" />
+          <label class="form-check-label" for="inOutTime">
+            Show <span style="color:green;">In</span>/<span style="color:brown;">Out</span> Time
+          </label>
+        </div>
+        <div class="clear-input-container"
+          style=" margin-top: auto; margin-left: 25px; text-align: center; vertical-align: middle; align-items: center; font-family: Georgia, 'Times New Roman', Times, serif; ">
+          <input type="time" id="appt" name="appt" value='--:--' onchange="filterOnEntryTime(this.value)" />
+          <label for="appt"> Entry Time </label>
+        </div>
+        <!-- <div class="form-check" 
+          style=" margin-top: auto; margin-left: 25px; text-align: center; vertical-align: middle; align-items: center; font-family: Georgia, 'Times New Roman', Times, serif;">
+          <input class="form-check-input" type="checkbox" value="" id="outTime">
+          <label class="form-check-label" for="outTime">
+            Out Time
+          </label>
+        </div> -->
+      </div>
+
+      <table class='table w-auto text-nowrap table-condensed table-sm table-bordered'
+        style='min-width:inherit; text-align: center;' id="datatable" data-show-columns="true" data-show-print="true"
+        data-show-export="true" data-show-columns-toggle-all="false" data-minimum-count-columns="0"
+        data-toggle="datatable" data-toolbar="#toolbar" data-show-footer="true" data-data-field="items" ,
+        data-unique-id="sn" data-page-list="[100, 150, 200, 300, 400, All]" data-footer-style="footerStyle">
+      </table>
+    </div>
+  </div>
+  <!--  <div class="popup" onclick="showPopUp()">Click me to toggle the popup!
+    <span class="popuptext" id="myPopup">A Simple Popup!</span>
+  </div> -->
+  <!-- Remove the container if you want to extend the Footer to full width. -->
+  <div class="container-fluid fixed-bottom fixed-footer" style="margin-bottom: 0px; margin-top: 0px;">
+
+    <footer class="text-center text-black">
+      <!-- Copyright -->
+      <div class="text-center p-1 text-primary" style="font-size: 12px;">
+        <span class="text-success">ESSL Attendance Mapper and Viewer</span>
+        <!-- © --> | Developed By:
+        <a class="text-danger" href="https://www.linkedin.com/in/citenishant">Nishant Kumar, Assistant Professor, SIT Sitamarhi</a> 
+
+      </div>
+      <!-- Copyright -->
+    </footer>
+
+  </div>
+  <!-- End of .container -->
+
+
+  <script type="text/javascript">
+    $(function () {
+
+      var start = moment().subtract(29, 'days');
+      var end = moment();
+
+      function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        //buildDataForAttendanceTable(start.format('MM/DD/YYYY') + '-' + end.format('MM/DD/YYYY'));
+        //console.log(start.format('MM/DD/YYYY') + '-' + end.format('MM/DD/YYYY'));
+      }
+
+
+      $('#reportrange').daterangepicker({
+        "maxDate": end,
+
+        startDate: start,
+        endDate: end,
+        "drops": "auto",
+        "showDropdowns": true,
+        ranges: {
+          'Today': [moment(), moment()],
+          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
+          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+      }, cb);
+
+      cb(start, end);
+
+    });
+
+
+  </script>
+
+
+
+  <script type="text/javascript">
+    let bioDataFromBiometric = { data: [] };
+    let fname = '';
+
+    async function readSingleFile(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = event => resolve({ name: file.name, contents: event.target.result });
+        reader.onerror = error => reject(error);
+        reader.readAsText(file);
+      });
+    }
+
+    async function handleFileUpload() {
+      document.getElementById('upbioimg').style.display = "inline-block";
+      document.getElementById('submit-bio-attn').disabled = true;
+      document.getElementById('bio-attn-file').disabled = true;
+
+      const fileInput = document.getElementById('bio-attn-file');
+      const files = fileInput.files;
+      const filePromises = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        filePromises.push(readSingleFile(file));
+      }
+
+      try {
+        const fileContentsArray = await Promise.all(filePromises);
+        const combinedFileContents = fileContentsArray.map(file => `${file.name}\n${file.contents}`).join("\n\n");
+        //console.log(fileContentsArray.length, fileContentsArray[0]);
+
+        for (let k = 0; k < fileContentsArray.length; k++) {
+
+          if (k == fileContentsArray.length - 1) {
+            fname += fileContentsArray[k]['name'];
+          } else {
+            fname += fileContentsArray[k]['name'] + ', ';
+          }
+          let text = fileContentsArray[k]['contents'];
+          var lines = text.split(/\r?\n/g);//split by newline chars to get all lines as array
+          //console.log(fname, text);
+          //console.log(lines.length);
+          for (var i = 0; i < lines.length - 1; i++) {
+            //if (i > 25)
+            // console.log(lines[i]);
+            let r = lines[i].trim().split("\t"); //remove quotation marks and split to cols
+            //console.log(r);
+            let d = r[1].split(" ");
+            let j = d[0].split("-");
+            j = j[2] + "-" + j[1] + "-" + j[0] + " " + d[1];
+            r[1] = j;
+            r = r.join(",");
+            var oneRecord = [r];
+            bioDataFromBiometric["data"].push(oneRecord);
+          }
+        }
+
+        showAllDataFromDatFile();
+        //const fileContentsElement = document.getElementById('fileContents');
+        //fileContentsElement.innerHTML = `<pre>${combinedFileContents}</pre>`;
+      } catch (error) {
+        console.error("An error occurred while reading files:", error);
+      }
+    }
+
+    /* function showPopUp() {
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
+    } */
+
+
+
+
+    $(document).ready(function () {
+      /*  $('#header').load('../header-ads.html');
+        $('#footer').load('../footer-ads.html'); */
+      //$('#example').DataTable();
+      /***********Show In Time & out Time ************/
+      /* document.getElementById("AttnDate").addEventListener("DOMSubtreeModified", function () {
+        console.log(this.innerText);
+      }); */
+
+      // $('[data-toggle="tooltip"]').tooltip();
+
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+      var targetSpan = $('#AttnDate');
+      var observer = new MutationObserver(function (mutations) {
+        //console.log('Content of the span changed' + document.getElementById("AttnDate").innerText);
+        /* console.log(document.getElementById('reportrange').getElementsByTagName('span')[0]
+          .innerText); */
+        let attnDatePicked = document.getElementById("AttnDate").innerText;
+        //console.log(attnDatePicked);
+        buildDataForAttendanceTable((attnDatePicked.split('-')[0]).trim() + '-' + (attnDatePicked.split('-')[1]).trim());
+
+      });
+      // Configure and start observing the target element for changes in child nodes
+      var config = { childList: true, subtree: true };
+      observer.observe(targetSpan[0], config);
+
+      $("#inOutTime").prop("checked", false);
+      //$("#outTime").prop("checked", true);
+
+      /***********End of End Time and Out Time*********************/
+
+
+      /*Code to Read CSV file, Biometric IDs*/
+
+      $('#submit-ids').on("click", function (e) {
+        //e.preventDefault();
+        if (!$('#ids-file')[0].checkValidity()) {
+          alert("Please select a formatted CSV File!");
+        } else {
+          $('#ids-file').parse({
+            config: {
+              delimiter: "auto",
+              complete: readIdCSV,
+            },
+            before: function (file, inputElem) {
+              document.getElementById('upidimg').style.display = "inline-block";
+              //document.getElementById('submit-bio-attn').disabled = true;
+              document.getElementById('submit-ids').disabled = true;
+              document.getElementById('pbar').style.display = "block";
+              //console.log("Parsing file...", file);
+              fname = file.name;
+            },
+            error: function (err, file) {
+              console.log("ERROR:", err, file);
+            },
+            complete: function () {
+              //var T = document.getElementById("codegen");
+              //T.style.display = "block";
+              document.getElementById('upidimg').style.display = "none";
+              //document.getElementById('submit-bio-attn').disabled = false;
+              document.getElementById('submit-ids').disabled = true;
+              document.getElementById('bioIdUploaded').innerHTML = '<p style="margin-top:10px;">' + "Biometric ID File " + '<b>' + fname + '</b>' + " is uploaded. " + '<a href="javascript:idChange()"><text style="color:orange;">Click</text></a>' + " to upload new Biometric ID File." + "</p>";
+              document.getElementById('bioIdUploaded').style.display = "inline-block";
+              //document.getElementById('months').value = "All Months";
+              document.getElementById('pbar').style.display = "none";
+              //console.log("Done with all files");
+            }
+          });
+        }
+      });
+      /* End of Code*/
+
+      /* On option Selection */
+      $('#months').on('change', function (e) {
+        //document.getElementById('monthpicker').style.display = "inline-block";
+        //var text = d.options[d.selectedIndex].text;
+        //console.log(text, value);
+      });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems, {
+          opacity: 0.75,
+          inDuration: 500,
+          outDuration: 500,
+        });
+      });
+
+    });
+
+    function showAllDataFromDatFile() {
+      //alert('I am loaded successfully');
+      //console.log(bioDataFromBiometric["data"]);
+      //alert(bioDataFromBiometric["data"]);
+
+      console.log("Parsing file...", fname);
+      //alert('Calling readBioCSV !');
+      readBioCSV(bioDataFromBiometric, '.dat');
+      //alert('Called readBioCSV !');
+      document.getElementById('upbioimg').style.display = "none";
+      document.getElementById('submit-ids').disabled = false;
+      //document.getElementById('submit-bio-attn').disabled = false;
+      document.getElementById('bioAttnUploaded').innerHTML = '<p style="margin-top:10px;">' + "Biometric Attendance File " + '<b>' + fname + '</b>' + " is uploaded. " + '<a href="."><text style="color:orange;">Refresh</text></a>' + " to upload new Biometric Attendance File." + "</p>";
+      document.getElementById('bioAttnUploaded').style.display = "inline-block";
+      document.getElementById('IdDataBlock').style.display = "block";
+      console.log("Done with all files");
+      //readBioCSV(bioDataFromBiometric);
+      //alert('DIsplay Tabs !');
+
+    }
+
+    function footerStyle(column) {
+      return {
+        id: {
+          classes: 'uppercase'
+        },
+        name: {
+          css: { 'font-weight': 'normal' }
+        },
+        price: {
+          css: { color: 'red' }
+        }
+      }[column.field]
+    }
+
+    function BioAttnfileValidation() {
+      var reader = new FileReader();
+      var fileInput =
+        document.getElementById('bio-attn-file');
+      var filePath = fileInput.value;
+      //var IdFile = document.getElementById('ids-file');
+      //var IdsFilePath = IdFile.value;
+
+      // Allowing file type
+      var allowedExtensions =
+        /(\.dat|\.DAT|\.Dat)$/i;
+      let fileExtension = allowedExtensions.exec(filePath);
+      if (!fileExtension) {
+        alert('Invalid file type!, Please select .dat file only, downloaded from Biometric.');
+        fileInput.value = '';
+        return false;
+      } else {
+        if (fileExtension[0] === '.dat') {
+          reader.readAsText(fileInput.files[0]);
+          let bioDataFromDatFile = { data: [] };
+          reader.onload = function () {
+
+            var text = reader.result;
+            //console.log(text);
+            //if (text!=null && text.length>0)
+            var lines = text.split(/\r?\n/g); //split by newline chars to get all lines as array
+            //console.log(lines);
+
+            for (var i = 0; i < lines.length - 1; i++) { //skip first line as it is Nlines
+              //console.log(lines[i]);
+              let r = lines[i].trim().split("\t"); //remove quotation marks and split to cols
+              //console.log(r);
+              let d = r[1].split(" ");
+              let j = d[0].split("-");
+              j = j[2] + "-" + j[1] + "-" + j[0] + " " + d[1];
+              r[1] = j;
+              r = r.join(",");
+              //r = "'" + r + "'";
+              var oneRecord = [r];
+              //console.log(r);
+              bioDataFromDatFile["data"].push(oneRecord);
+            }
+          }
+          //console.log(bioDataFromDatFile);
+          //console.log(fileExtension[0]);
+
+        }
+        return true;
+      }
+
+      /* if (!allowedExtensions.exec(IdsFilePath)) {
+         alert('Invalid file type');
+         IdFile.value = '';
+         return false;
+       } else {
+         return true;;
+       }*/
+    }
+
+    function BioIdsfileValidation() {
+      var IdFile = document.getElementById('ids-file');
+      var IdsFilePath = IdFile.value;
+
+      // Allowing file type
+      var allowedExtensions =
+        /(\.csv|\.CSV)$/i;
+      //console.log(IdsFilePath);
+      if (!allowedExtensions.exec(IdsFilePath)) {
+        alert('Invalid file type!, Please select .csv file only for Biometric IDs');
+        IdFile.value = '';
+        return false;
+      } else {
+        return true;;
+      }
+    }
+
+    function idChange() {
+      var T = document.getElementById('bioIdUploaded');
+      T.style.display = "inline-block";
+      document.getElementById('ids-file').value = "";
+      document.getElementById('submit-ids').disabled = false;
+      document.getElementById('bioIdUploaded').style.display = "none";
+
+    }
+  </script>
+
+
+  <!--  <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+  <!-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="./js/dataTable.js"></script> -->
+
+  <script src="./js/clipboard.min.js"></script>
+  <script>
+    var clipboard = new ClipboardJS('.btn');
+
+    clipboard.on('success', function (e) {
+      var T = document.getElementById("instruction");
+      T.style.display = "block";
+      console.log(e);
+    });
+
+    clipboard.on('error', function (e) {
+      console.log(e);
+    });
+
+
+  </script>
+</body>
+
+</html>
